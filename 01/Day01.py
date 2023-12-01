@@ -2,13 +2,16 @@ print('Accesing calibration file')
 with open('01/input.txt') as file:
     lines=file.readlines()
 
-linesValue=[]
 sumvalue=0
 
 def decodeLine(lineToDecode):
+    #Flags for when the numbers are found
     first=False
-    last=False
-    size=len(lineToDecode)
+    last=False 
+
+    size=len(lineToDecode) #size of the line
+    
+    #default numbers
     firstNumber=0
     lastNumber=0
     for i in range(size):
@@ -23,7 +26,7 @@ def decodeLine(lineToDecode):
         if(first and last):
             break
     code=int(firstNumber)*10+int(lastNumber)
-    print('Code:' + str(code))
+    #print('Code:' + str(code))
     return(code)
 
 for index in lines:
