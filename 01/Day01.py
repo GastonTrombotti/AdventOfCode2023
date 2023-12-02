@@ -5,8 +5,6 @@ with open('01/input.txt') as file:
 sumvalue1=0
 sumvalue2=0
 
-digitWords=['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-
 def decodeLine(lineToDecode):
     #Flags for when the numbers are found
     first=False
