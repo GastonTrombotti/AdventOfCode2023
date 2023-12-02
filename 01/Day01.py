@@ -2,7 +2,10 @@ print('Accesing calibration file')
 with open('01/input.txt') as file:
     lines=file.readlines()
 
-sumvalue=0
+sumvalue1=0
+sumvalue2=0
+
+digitWords=['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
 def decodeLine(lineToDecode):
     #Flags for when the numbers are found
@@ -30,6 +33,23 @@ def decodeLine(lineToDecode):
     return(code)
 
 for index in lines:
-     sumvalue+=int(decodeLine(index))
+     sumvalue1+=int(decodeLine(index))
 
-print('Sum of all values: '+ str(sumvalue))
+print('Part 1: '+ str(sumvalue1))
+
+#Modifiying line for part 2
+def replasingStrings(line):
+    line=line.replace('one', 'o1e')
+    line=line.replace('two', 't2o')
+    line=line.replace('three', 'th3ee')
+    line=line.replace('four', 'f4r')
+    line=line.replace('five', 'f5e')
+    line=line.replace('six', 's6x')
+    line=line.replace('seven', 's7n')
+    line=line.replace('eight', 'e8t')
+    line=line.replace('nine', 'n9e')
+    return(line)
+
+for index in lines:
+    sumvalue2+=int(decodeLine(replasingStrings(index)))
+print('Part 2: '+ str(sumvalue2))
