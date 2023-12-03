@@ -1,8 +1,4 @@
-testString='Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red'
-
 baseBag =[12,13,14] #Red, Green, Blue
-
-currentBag=[0,0,0]
 
 print('Accesing calibration file')
 with open('02/input.txt') as file:
@@ -58,13 +54,27 @@ def readLine(line): #reads a line and returns de representaion of the data in it
         cBag=compareBags(cBag,bagOfDraw)    
     return cBag
 
-def part1():
+def part1(): #Solves part 1
     counter=0
     for index in range(len(lines)):
         x=readLine(CleanString(lines[index]))
-        #print('reading: '+ str(lines[index]))
         if(BagIsPosible(x)):
             counter+=index+1
     return counter
 
-print(part1())
+def setPower(setX): #calculates de power of a ceritan set (multiply all the values)
+    power=1
+    for value in setX:
+        power*=value
+    return power
+
+def part2(): #Solves part 2
+    counter=0
+    for index in range(len(lines)):
+        x=readLine(CleanString(lines[index]))
+        counter+=setPower(x)
+    return counter
+
+print('Part 1: '+ str(part1()))
+
+print('Part 2: '+ str(part2()))
