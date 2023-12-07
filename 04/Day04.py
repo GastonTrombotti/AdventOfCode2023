@@ -2,8 +2,6 @@ print('Accesing cards file')
 with open('04/input.txt') as file:
     lines=file.readlines()
 
-testString='Card   1: 10  5 11 65 27 43 44 29 24  6 | 65 10 18 14 17 97 95 34 38 23 10 25 22 15 87  9 28 43  4 71 89 20 72  5  6\n'
-
 def getWinnigNumbers(card): #Gets the wining numbers of a card
     winnigNumbers=card[10:39]
     list=str(winnigNumbers).split(' ')
@@ -21,12 +19,6 @@ def calculateCardPoints(card): #calculate the points of the card
     winnersInCard=[]
     winningNumbers=getWinnigNumbers(card)
     cardNumbers=getNubersInCard(card)
-    #winnersInCard=[x for x in winningNumbers if x in cardNumbers]
-
-    #if(winnersInCard!=[]): #check if it's empty
-    #    cardPoints=1
-    #    for hit in winnersInCard[1:]:
-    #        cardPoints*=2
     for index in cardNumbers:
         if cardPoints==0 and index in winningNumbers:
             cardPoints=1
@@ -39,14 +31,39 @@ def solvePart1():
     points=0
     for card in lines:
         points+=int(calculateCardPoints(card))
-        print('points: '+ str(points))
+        #print('points: '+ str(points))
     return points
-print(getWinnigNumbers(testString))
-print(getNubersInCard(testString))
-winningNumbers=getWinnigNumbers(testString)
-cardNumbers=getNubersInCard(testString)
-winnersInCard=[x for x in winningNumbers if x in cardNumbers]
-print(winnersInCard)
-print(calculateCardPoints(testString))
-print(solvePart1())
+
+print('Part 1: ' + str(solvePart1()))
+
+def getCardNumber(card): #Returns the number a card
+    result=card[5:8]
+    result.strip()
+    return int(result)
+
+def countCardsToDraw(card): #Returns how many card to draw from one scratchcard
+    winningNumbers=getWinnigNumbers(card)
+    cardNumbers=getNubersInCard(card)
+    counter=0
+    for number in cardNumbers:
+        if(number in winningNumbers):
+            counter+=1
+    return counter
+
+def drawCloneCards(cardsInHand,i,j): #draws j copies of cards starting from position i and returns a new 'cardsInHand' with them on it
+    for x in range(j):
+        cardsInHand.append(lines[i+x])
+    return cardsInHand
+
+def solvePart2():
+    hand=[1 for i in range(len(lines))]
+    for card in lines:
+        cardNumber=getCardNumber(card)
+        cardsToDraw=countCardsToDraw(card)
+        for i in range(cardNumber, cardNumber+cardsToDraw):
+            if i < len(hand):
+                hand[i]+=1*hand[cardNumber-1]
+    return sum(hand)
+
+print('Part 2: '+str(solvePart2()))
 
